@@ -1,26 +1,45 @@
-import uvicorn
-from alembic import config
+"""Test cmdline"""
+import sys
 
-import example_blog
-from example_blog import cmdline
+import pytest
 
-
-def test_main(cli):
-    result = cli.invoke(cmdline.main)
-    assert result.exit_code == 0
-    result = cli.invoke(cmdline.main, '-V')
-    assert result.exit_code == 0
-    assert str(result.output).strip() == example_blog.__version__
+from word_count.cmdline import main
 
 
-def test_run(cli, mocker):
-    mock_run = mocker.patch.object(uvicorn, 'run')
-    result = cli.invoke(cmdline.main, ['server', '-h', '127.0.0.1', '-p', '8080'])
-    assert result.exit_code == 0
-    mock_run.assert_called_once_with(app=mocker.ANY, host='127.0.0.1', port=8080)
+@pytest.mark.parametrize(
+    '_help, source, dest, raise_value, count_called',
+    [
+        ('-h', '', '', 0, False),
+        ('-h', 'foo', 'bar', 0, False),
+        ('-h', '', 'bar', 0, False),
+        ('-h', 'foo', '', 0, False),
 
+        ('', 'foo', '', 2, False),
+        ('', '', 'foo', 2, False),
 
-def test_migrate(cli, mocker):
-    mock_main = mocker.patch.object(config, 'main')
-    cli.invoke(cmdline.main, ['migrate', '--help'])
-    mock_main.assert_called_once()
+        ('', 'foo', 'bar', None, True),    # Normal argument.
+
+    ]
+)
+def test_main(mocker, _help, source, dest, raise_value, count_called):
+    """Test main"""
+    args = ['program']
+    if _help:
+        args.append(_help)
+    if source:
+        args.extend(['-s', source])
+    if dest:
+        args.extend(['-d', dest])
+    mocker.patch.object(sys, 'argv', args)
+    mock_count = mocker.patch('word_count.cmdline.count')
+
+    if raise_value is not None:
+        # If use -h, will raise SystemExit(0)
+        # If some require argument miss, exit code > 0
+        with pytest.raises(SystemExit) as ex:
+            main()
+        assert ex.value.code == raise_value
+    else:
+        # Normal exc
+        main()
+        assert mock_count.called == count_called

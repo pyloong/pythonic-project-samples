@@ -1,12 +1,18 @@
-# 一个简单博客系统示例.
+# Word Count
 
-此项目是一个简单的博客系统，提供一些用户管理和博客文章管理。目的是演示如何做一个更加 Pythonic 的项目。
+## Overview
 
-如果您有任何意见和建议，欢迎开启 ISSUE 发起讨论。期待与您打造更加完美的 Python 示例。
+Word count project
 
-## 协作开发
+## Usage
 
-- Fork 仓库
-- 编写代码，测试，提交
-- 发起 PR
-- 审核通过后合并，协作完成
+1. init project
+```
+pipenv install
+```
+
+TODO
+
+## Develop
+
+You may need to read the [develop document](.docs/development.md) to use SRC Layout in your IDE.

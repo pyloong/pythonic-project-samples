@@ -1,6 +1,7 @@
-from example_blog.models import Article
+"""Tests"""
+from word_count import __version__
 
 
-def test_migrate_data(init_article, session):
-    count = session.query(Article).count()
-    assert count == 3
+def test_version():
+    """Test version"""
+    assert __version__ == '0.1.0'
