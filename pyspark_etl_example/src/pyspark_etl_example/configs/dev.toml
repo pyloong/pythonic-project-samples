@@ -1,0 +1,14 @@
+[development]
+message = 'This is in development env'
+
+# spark configs
+spark_master = 'local[*]'
+
+spark_config.spark.driver.memory = '3G'
+spark_config.spark.executor.memory = '16G'
+spark_config.spark.sql.debug.maxToStringFields = 100
+
+# example path
+input_path = '../../data/input'
+output_path = '../../data/output'
+
