@@ -24,12 +24,13 @@ class Executor:
         self.logger = logger
 
     def run(self) -> None:
+        """calls its `run()` method in the task class"""
         task_class = self._load_task(TASK_NAMESPACE, self.task)
         self.logger.warn(f"Running task: {task_class}")
         task_class(self.spark, self.logger, self.settings).run()
 
     def _load_task(self, namespace: str, name: str) -> Callable:
-        """Get extension by name from namespace."""
+        """Get extension by name from namespace, return task obj"""
         extension_manager = ExtensionManager(namespace=namespace, invoke_on_load=False)
         for ext in extension_manager.extensions:
             if ext.name == name:

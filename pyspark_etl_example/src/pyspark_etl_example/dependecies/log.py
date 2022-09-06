@@ -2,7 +2,7 @@
 from pyspark.sql import SparkSession
 
 
-class Log4j(object):
+class Log4j:
     """Wrapper class for Log4j JVM object.
     Please setting default log level to "WARN".
     :param spark: SparkSession object.
@@ -24,7 +24,6 @@ class Log4j(object):
         :return: None
         """
         self.logger.error(message)
-        return None
 
     def warn(self, message):
         """Log a warning.
@@ -32,7 +31,6 @@ class Log4j(object):
         :return: None
         """
         self.logger.warn(message)
-        return None
 
     def info(self, message):
         """Log information.
@@ -40,4 +38,3 @@ class Log4j(object):
         :return: None
         """
         self.logger.info(message)
-        return None
