@@ -1,0 +1,8 @@
+[global]
+message = 'This is in global settings'
+
+# log-config
+LOGPATH = '@none'
+DEBUG = false
+LOGLEVEL = 'INFO'
+VERBOSE = 0

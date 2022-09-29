@@ -1,0 +1,12 @@
+[development]
+message = 'This is in development env'
+
+# tmp path
+input_path = '../../tmp/input/car_price.csv'
+output_path = '../../tmp/output/'
+
+# spark configs
+spark_master = 'local[*]'
+spark_config.spark.driver.memory = '3G'
+spark_config.spark.executor.memory = '16G'
+spark_config.spark.sql.debug.maxToStringFields = 100
